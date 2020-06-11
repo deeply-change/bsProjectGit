@@ -5,9 +5,40 @@ using UnityEngine.UI;
 public class SpareRoom : MonoBehaviour
 {
     int buttonNum;
+    GameObject[] Button;
+    public static int costMoney = 20;
+    string[] roomName =
+    {
+        "电车 花费:X",
+        "公厕 花费:X",
+        "温泉 花费:X",
+        "电车 花费:X",
+        "公厕 花费:X",
+        "温泉 花费:X",
+        "电车 花费:X",
+        "公厕 花费:X",
+        "温泉 花费:X",
+        "公厕 花费:X",
+        "温泉 花费:X",
+    };
+    string[] roomNameEnglish =
+    {
+        "denche",
+        "gongce",
+        "wenquan",
+        "denche",
+        "gongce",
+        "wenquan",
+       "denche",
+        "gongce",
+        "wenquan",
+       "denche",
+        "gongce",
+    };
     void Start()
     {
-        buttonNum = 2;
+        buttonNum = 11;
+        Button = new GameObject[buttonNum];
     }
 
     // Update is called once per frame
@@ -17,36 +48,21 @@ public class SpareRoom : MonoBehaviour
     }
     void SetButton(GameObject go)
     {
-        FollowWorldObj Building = GameObject.Find("CanvasForButton").GetComponent<FollowWorldObj>();
-        if (Building.state == (int)FollowWorldObj.UIFollow.Wait || go != Building.worldPos)
-        {
-            if (go != Building.worldPos) Building.ClearButton();
-            //为按钮建立数组
-            Building.worldPos = this.gameObject;
-            Building.UIObj = new GameObject[buttonNum];
-            Building.offset = new Vector2[buttonNum];
-            Building.mUIObj = new GameObject[buttonNum];
-            for (int i = 0; i < buttonNum; i++)
-            {
-                //读取prefab
-                //Building.UIObj[i] = new GameObject();             
-                Building.UIObj[i] = Resources.Load("Prefab/UI/BuildingSet") as GameObject;
-                Building.offset[i] = new Vector2(40 * (i * buttonNum - 1), 5);
-                //建立prefab
-                //Building.mUIObj[i] = new GameObject();
-                Building.mUIObj[i] = Instantiate(Building.UIObj[i], transform.position, transform.rotation);
-                Building.mUIObj[i].transform.SetParent(GameObject.Find("CanvasForButton").gameObject.transform);
-                Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-                Building.mUIObj[i].GetComponent<RectTransform>().position = screenPos + Building.offset[i];
-            }
-            Building.mUIObj[0].transform.GetChild(0).GetComponent<Text>().text = "不知道1";
-            Building.mUIObj[0].name = "SpareRoom";
-            Building.mUIObj[0].AddComponent<SpareRoomButton>();
-            Building.mUIObj[0].GetComponent<SpareRoomButton>().room = this.gameObject;
-            Building.mUIObj[1].transform.GetChild(0).GetComponent<Text>().text = "不知道2";
+        GameObject menu = GameObject.Find("CanvasForButton").transform.Find("Menu").gameObject;
+        GameObject grid = menu.transform.Find("Scroll View/Viewport/Grid").gameObject;
+        menu.SetActive(true);//开启菜单
 
-            Building.state = (int)FollowWorldObj.UIFollow.Draw;
+        for (int i = 0; i < buttonNum; i++)
+        {
+            Button[i] = Instantiate(Resources.Load("Prefab/UI/BuildingSetButton") as GameObject);
+            Button[i].transform.SetParent(grid.transform);
+            Button[i].GetComponent<RectTransform>().localScale = Vector3.one;
+            Button[i].transform.GetChild(0).GetComponent<Text>().text = roomName[i];
+            Button[i].name = roomNameEnglish[i];
         }
 
+        Button[0].AddComponent<SpareRoomButton>();
+        Button[0].GetComponent<SpareRoomButton>().room = this.gameObject;
+      
     }
 }

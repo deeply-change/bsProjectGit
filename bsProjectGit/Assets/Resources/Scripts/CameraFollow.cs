@@ -19,6 +19,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     [Header("滚轮最小速度")]
     private float max = 3f;
+
     float rotationY;
     void Start()
     {
@@ -38,21 +39,19 @@ public class CameraFollow : MonoBehaviour
     }
     private void Pick()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&!SystemDate.Instance.isUIOpen)
         {
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             LayerMask layer = 1 << LayerMask.NameToLayer("Building");
             RaycastHit hit;
-            FollowWorldObj Building = GameObject.Find("CanvasForButton").GetComponent<FollowWorldObj>();
+            GameObject Canvas = GameObject.Find("CanvasForButton").gameObject;
 
             if (Physics.Raycast(cameraRay, out hit, 100f, layer))
             {
                 hit.collider.gameObject.SendMessage("SetButton",hit.collider.gameObject, SendMessageOptions.DontRequireReceiver);
+                SystemDate.Instance.isUIOpen=true;
             }
-            else
-            {
-                Building.state = (int)FollowWorldObj.UIFollow.None;
-            }
+          
         }
        
     }
