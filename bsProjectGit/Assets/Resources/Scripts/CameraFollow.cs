@@ -39,7 +39,7 @@ public class CameraFollow : MonoBehaviour
     }
     private void Pick()
     {
-        if (Input.GetMouseButtonDown(0)&&!SystemDate.Instance.isUIOpen)
+        if (Input.GetMouseButtonDown(0)&&!SystemData.Instance.isUIOpen)
         {
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             LayerMask layer = 1 << LayerMask.NameToLayer("Building");
@@ -48,8 +48,8 @@ public class CameraFollow : MonoBehaviour
 
             if (Physics.Raycast(cameraRay, out hit, 100f, layer))
             {
-                hit.collider.gameObject.SendMessage("SetButton",hit.collider.gameObject, SendMessageOptions.DontRequireReceiver);
-                SystemDate.Instance.isUIOpen=true;
+                hit.collider.gameObject.SendMessage("SetButton",SendMessageOptions.DontRequireReceiver);
+                SystemData.Instance.isUIOpen=true;
             }
           
         }

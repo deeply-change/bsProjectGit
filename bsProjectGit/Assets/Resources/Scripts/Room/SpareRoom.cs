@@ -4,41 +4,50 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SpareRoom : MonoBehaviour
 {
-    int buttonNum;
+ 
     GameObject[] Button;
     public static int costMoney = 20;
-    string[] roomName =
+    GameObject menu;
+    GameObject grid;
+    int ButNum;
+    public static string[] roomName =
     {
-        "电车 花费:X",
-        "公厕 花费:X",
-        "温泉 花费:X",
-        "电车 花费:X",
-        "公厕 花费:X",
-        "温泉 花费:X",
-        "电车 花费:X",
-        "公厕 花费:X",
-        "温泉 花费:X",
-        "公厕 花费:X",
-        "温泉 花费:X",
+        "电车 花费:10",
+        "公厕 花费:20",
+        "温泉 花费:30",
+        "小屋 花费:40",
+        "办公室 花费:50",
+        "爱情旅馆 花费:60",
+        "野外 花费:70",
+        "海滩 花费:80",
+        "洞穴 花费:90",
+        "校园 花费:100",
+        "天台 花费:110",
     };
-    string[] roomNameEnglish =
+    public static string[] roomNameEnglish =
     {
         "denche",
         "gongce",
         "wenquan",
-        "denche",
-        "gongce",
-        "wenquan",
-       "denche",
-        "gongce",
-        "wenquan",
-       "denche",
-        "gongce",
+        "xiaowu",
+        "bangongshi",
+        "waiqinglvguan",
+       "dyewai",
+        "haitan",
+        "dongxue",
+       "xiaoyuan",
+        "tiantai",
+    };
+    public static int[] ChangeRoomMoney =
+    {
+        10,20,30,40,50,60,70,80,90,100,110
     };
     void Start()
     {
-        buttonNum = 11;
-        Button = new GameObject[buttonNum];
+        ButNum = 11;
+        Button = new GameObject[SystemData.Instance.SpareRoomBtnNum]; 
+        menu = GameObject.Find("CanvasForButton").transform.Find("RoomButtonMenu").gameObject;
+        grid = menu.transform.Find("Scroll View/Viewport/Grid").gameObject;
     }
 
     // Update is called once per frame
@@ -46,23 +55,10 @@ public class SpareRoom : MonoBehaviour
     {
         
     }
-    void SetButton(GameObject go)
-    {
-        GameObject menu = GameObject.Find("CanvasForButton").transform.Find("Menu").gameObject;
-        GameObject grid = menu.transform.Find("Scroll View/Viewport/Grid").gameObject;
+    void SetButton()
+    { 
+        //打开赋予属性菜单
         menu.SetActive(true);//开启菜单
-
-        for (int i = 0; i < buttonNum; i++)
-        {
-            Button[i] = Instantiate(Resources.Load("Prefab/UI/BuildingSetButton") as GameObject);
-            Button[i].transform.SetParent(grid.transform);
-            Button[i].GetComponent<RectTransform>().localScale = Vector3.one;
-            Button[i].transform.GetChild(0).GetComponent<Text>().text = roomName[i];
-            Button[i].name = roomNameEnglish[i];
-        }
-
-        Button[0].AddComponent<SpareRoomButton>();
-        Button[0].GetComponent<SpareRoomButton>().room = this.gameObject;
-      
+        SystemData.Instance.SetGrid(ButNum, roomNameEnglish, roomName, ChangeRoomMoney, grid,this.gameObject);
     }
 }

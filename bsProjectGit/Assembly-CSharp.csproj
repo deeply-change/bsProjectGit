@@ -64,13 +64,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\BasePlayer.cs" />
-    <Compile Include="Assets\Resources\Scripts\Button\MenuCloseButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\Button\RoomButtonMenuCloseButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\Button\SpareAttributeButton.cs" />
     <Compile Include="Assets\Resources\Scripts\Button\SpareRoomButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\Button\SpareRoomMenuButton.cs" />
     <Compile Include="Assets\Resources\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Resources\Scripts\EventTriggerListener.cs" />
     <Compile Include="Assets\Resources\Scripts\Room\BaseRoom.cs" />
     <Compile Include="Assets\Resources\Scripts\Room\SpareRoom.cs" />
-    <Compile Include="Assets\Resources\Scripts\SystemDate.cs" />
+    <Compile Include="Assets\Resources\Scripts\Room\SpareRoomWithAttribute.cs" />
+    <Compile Include="Assets\Resources\Scripts\SystemData.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\MakeFilmBarRotate.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\UIDebug.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\UISystem.cs" />
     <Compile Include="Assets\Resources\Scripts\UV.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
